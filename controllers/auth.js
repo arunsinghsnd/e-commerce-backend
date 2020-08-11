@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const { check, validationResult } = require("express-validator");
-var expressJwt = require("express-jwt");
+const expressJwt = require("express-jwt");
 var jwt = require("jsonwebtoken");
 const { json } = require("body-parser");
 
@@ -65,3 +65,14 @@ exports.signout = (req, res) => {
     message: "User Signout Successfully",
   });
 };
+
+
+
+// protected route
+exports.isSignedIn = expressJwt({
+    secret: process.env.SECRET,
+    userProperty: "auth"
+});
+
+
+// custom middlewares
