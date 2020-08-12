@@ -12,7 +12,20 @@ exports.getUserById = (req, res, next, id) =>{
     });
 };
 
-exports.getUser = (req,res) =>{
-    //TODO: get back here for password
-    return res.json(res.profile)
+exports.getUser = (req,res) => {
+    req.profile.salt = undefined;
+    req.profile.encry_password = undefined;
+    return res.json(req.profile);
 };
+
+
+// exports.getAllUsers = (req,res) =>{
+//     User.find().exec((err, users)=>{
+//         if(err || !users){
+//             return res.status(400).json({
+//                 error: "No  users found"
+//             })
+//         }
+//         res.json(users);
+//     })
+// }
