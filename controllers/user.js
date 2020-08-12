@@ -5,9 +5,9 @@ exports.getUserById = (req, res, next, id) =>{
         if(err || !user){
             return res.status(400).json({
                 error: "No User was fond in DB"
-            })
+            });
         }
-        req.profile = user
+        req.profile = user;
         next();
     });
 };
