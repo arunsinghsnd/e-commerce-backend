@@ -30,8 +30,8 @@ exports.updateUser = (req,res) =>{
                     error: "You are not authorized to update this user"
                 })
             }
-            user.profile.salt = undefined;
-            user.profile.encry_password = undefined;
+            user.salt = undefined;
+            user.encry_password = undefined;
             res.json(user)
         }
     )
