@@ -4,7 +4,7 @@ const  {isSignedIn, isAuthenticated, isAdmin} = require("../controllers/auth");
 const  { getUserById, pushOrderInPurchaseList } = require("../controllers/user");
 const {updateStock} = require("../controllers/product")
 
-const {getOrderById} = require("../controllers/order");
+const {getOrderById, createOrder} = require("../controllers/order");
 const { route } = require("./auth");
 
 // prames
@@ -13,6 +13,13 @@ router.param("orderId", getOrderById);
 
 // actual routes
 //create
+router.post("/order/create/:userId", 
+isSignedIn, 
+isAuthenticated, 
+pushOrderInPurchaseList,
+updateStock, 
+createOrder
+);
 
 //read
 module.exports = route;
