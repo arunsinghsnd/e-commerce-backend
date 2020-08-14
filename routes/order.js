@@ -4,8 +4,15 @@ const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
 const { getUserById, pushOrderInPurchaseList } = require("../controllers/user");
 const { updateStock } = require("../controllers/product");
 
-const { getOrderById, createOrder, getAllOrders } = require("../controllers/order");
+const { 
+    getOrderById, 
+    createOrder,
+    getAllOrders,
+    getOrderStatus,
+    updateStatus
+} = require("../controllers/order");
 const { route } = require("./auth");
+const { update } = require("../models/user");
 
 // prames
 router.param("userId", getUserById);
@@ -30,4 +37,14 @@ router.get(
   isAdmin,
   getAllOrders
 );
+
+
+
+
+// status of order
+
+
+router.get("/order/status/:userId" , isSignedIn, isAuthenticated, isAdmin, getOrderStatus);
+router.put("/order/:orderId/status/:userId", isSignedIn, isAuthenticated, isAdmin , updateStatus);
+
 module.exports = route;

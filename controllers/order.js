@@ -1,5 +1,6 @@
 const { Order, ProductCart } = require("../models/order")
-const order = require("../models/order")
+const order = require("../models/order");
+const { json } = require("body-parser");
 
 exports.getOrderById = (req, res , next) =>{
     Order.findById(id)
@@ -41,4 +42,24 @@ exports.getAllOrders = (req, res) =>{
         }
         res.next(order)
     });
+};
+
+
+exports.getOrderStatus = (req, res)=>{
+    res.json(Order.schema.path("status").eumValues);
+};
+
+exports.updateStatus = (req, res) =>{
+    Order.update(
+        {_id: req.body.orderId},
+        {$set: {status: req.body.status}},
+        (err, order) =>{
+            if(err){
+                return res.status(400),json({
+                    error: "Cannot updte order status"
+                })
+            }
+            res.json(order);
+        }
+    )
 };
