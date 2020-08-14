@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const  {isSignedIn, isAuthenticated, isAdmin} = require("../controllers/auth");
-const  { getUserById, pushOrderInPurchaseList } = require("../controllers/user");
-const {updateStock} = require("../controllers/product")
+const { isSignedIn, isAuthenticated, isAdmin } = require("../controllers/auth");
+const { getUserById, pushOrderInPurchaseList } = require("../controllers/user");
+const { updateStock } = require("../controllers/product");
 
-const {getOrderById, createOrder} = require("../controllers/order");
+const { getOrderById, createOrder, getAllOrders } = require("../controllers/order");
 const { route } = require("./auth");
 
 // prames
@@ -13,13 +13,21 @@ router.param("orderId", getOrderById);
 
 // actual routes
 //create
-router.post("/order/create/:userId", 
-isSignedIn, 
-isAuthenticated, 
-pushOrderInPurchaseList,
-updateStock, 
-createOrder
+router.post(
+  "/order/create/:userId",
+  isSignedIn,
+  isAuthenticated,
+  pushOrderInPurchaseList,
+  updateStock,
+  createOrder
 );
 
 //read
+router.get(
+  "/order/all/:userId",
+  isSignedIn,
+  isAuthenticated,
+  isAdmin,
+  getAllOrders
+);
 module.exports = route;
