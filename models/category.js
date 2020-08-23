@@ -1,5 +1,3 @@
-const { Mongoose } = require("mongoose");
-
 const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema(
@@ -7,9 +5,10 @@ const categorySchema = new mongoose.Schema(
     name: {
       type: String,
       trim: true,
-      required: 32,
-      unique: true,
-    },
+      required: true,
+      maxlength: 32,
+      unique: true
+    }
   },
   { timestamps: true }
 );
